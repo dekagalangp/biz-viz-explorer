@@ -1,5 +1,4 @@
-
-const API_BASE_URL = 'http://localhost:4000';
+const API_BASE_URL = 'https://studious-space-computing-machine-wv6x5p9647739rw5-4000.app.github.dev';
 
 export interface SalesPerformanceData {
   _id: { year: number; month: number };
