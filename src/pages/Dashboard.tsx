@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -8,6 +7,9 @@ import { SalesChart } from '@/components/dashboard/SalesChart';
 import { CustomerGrowthChart } from '@/components/dashboard/CustomerGrowthChart';
 import { ProductAnalyticsChart } from '@/components/dashboard/ProductAnalyticsChart';
 import { OperationalChart } from '@/components/dashboard/OperationalChart';
+import { SalesForm } from '@/components/forms/SalesForm';
+import { CustomerForm } from '@/components/forms/CustomerForm';
+import { ProductForm } from '@/components/forms/ProductForm';
 
 const Dashboard: React.FC = () => {
   const [startDate, setStartDate] = useState<Date | undefined>();
@@ -46,6 +48,7 @@ const Dashboard: React.FC = () => {
           <TabsTrigger value="customers">Customers</TabsTrigger>
           <TabsTrigger value="products">Products</TabsTrigger>
           <TabsTrigger value="operations">Operations</TabsTrigger>
+          <TabsTrigger value="data-entry">Data Entry</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-4">
@@ -81,6 +84,14 @@ const Dashboard: React.FC = () => {
         <TabsContent value="operations" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-1">
             <OperationalChart startDate={startDate} endDate={endDate} />
+          </div>
+        </TabsContent>
+
+        <TabsContent value="data-entry" className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <SalesForm />
+            <CustomerForm />
+            <ProductForm />
           </div>
         </TabsContent>
       </Tabs>

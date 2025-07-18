@@ -37,6 +37,38 @@ export interface UserActivityData {
   count: number;
 }
 
+export interface SalesData {
+  productId: string;
+  amount: number;
+  price: number;
+  category: string;
+  date: Date;
+}
+
+export interface CustomerData {
+  name: string;
+  email: string;
+  createdAt: Date;
+}
+
+export interface ProductData {
+  name: string;
+  category: string;
+  price: number;  
+}
+
+export interface OperationalLogData {
+  latency: number;
+  statusCode: number;
+  endpoint: string;
+}
+
+export interface UserActivityData {
+  userId: string;
+  action: string;
+  timestamp: Date;
+}
+
 class ApiService {
   private async fetchData<T>(endpoint: string, params?: Record<string, string>): Promise<T> {
     const url = new URL(`${API_BASE_URL}${endpoint}`);
@@ -47,6 +79,21 @@ class ApiService {
     }
 
     const response = await fetch(url.toString());
+    if (!response.ok) {
+      throw new Error(`API Error: ${response.statusText}`);
+    }
+    return response.json();
+  }
+
+  private async postData<T>(endpoint: string, data: any): Promise<T> {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    
     if (!response.ok) {
       throw new Error(`API Error: ${response.statusText}`);
     }
@@ -117,6 +164,27 @@ class ApiService {
       groupBy,
       limit
     });
+  }
+
+  // POST methods
+  async createSale(data: SalesData) {
+    return this.postData('/api/sales', data);
+  }
+
+  async createCustomer(data: CustomerData) {
+    return this.postData('/api/customers', data);
+  }
+
+  async createProduct(data: ProductData) {
+    return this.postData('/api/products', data);
+  }
+
+  async createOperationalLog(data: OperationalLogData) {
+    return this.postData('/api/operational/log', data);
+  }
+
+  async createUserActivity(data: UserActivityData) {
+    return this.postData('/api/user/activity', data);
   }
 }
 
