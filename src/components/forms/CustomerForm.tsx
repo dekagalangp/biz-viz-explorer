@@ -32,7 +32,8 @@ export const CustomerForm: React.FC = () => {
   const onSubmit = async (data: CustomerFormData) => {
     try {
       await apiService.createCustomer({
-        ...data,
+        name: data.name,
+        email: data.email,
         createdAt: new Date(data.createdAt),
       });
       toast({

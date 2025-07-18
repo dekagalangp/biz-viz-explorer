@@ -6,7 +6,6 @@ import * as z from 'zod';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { apiService } from '@/services/api';
 import { useToast } from '@/hooks/use-toast';
@@ -37,7 +36,10 @@ export const SalesForm: React.FC = () => {
   const onSubmit = async (data: SalesFormData) => {
     try {
       await apiService.createSale({
-        ...data,
+        productId: data.productId,
+        amount: data.amount,
+        price: data.price,
+        category: data.category,
         date: new Date(data.date),
       });
       toast({

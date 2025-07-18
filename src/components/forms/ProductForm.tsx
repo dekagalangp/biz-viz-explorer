@@ -31,7 +31,11 @@ export const ProductForm: React.FC = () => {
 
   const onSubmit = async (data: ProductFormData) => {
     try {
-      await apiService.createProduct(data);
+      await apiService.createProduct({
+        name: data.name,
+        category: data.category,
+        price: data.price,
+      });
       toast({
         title: "Success",
         description: "Product created successfully",
